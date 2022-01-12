@@ -47,23 +47,22 @@ async function createLittleSimpsons() {
 
 createLittleSimpsons();
 
-async function addNelson(clientData) {
+async function addNelson() {
   const simpsons = await readFile('simpsonFamily.json', 'utf-8');
   const json = JSON.parse(simpsons || '[]');
   if(!Array.isArray(json)) {
     throw new Error(`Malformed JSON. Expected array, got: ${json}.`);
   }
-  json.push(clientData);
+  json.push({
+    "id": "5",
+    "name": "Nelson Muntz"
+  });
   const jsonStringfy = JSON.stringify(json);
   await writeFile('simpsonFamily.json', jsonStringfy);
 }
 
-/* addNelson({
-  "id": "5",
-  "name": "Nelson Muntz"
-})
-  .then(() => console.log('OK!'))
-  .catch(console.error); */
+// addNelson(); 
+
 
 async function replaceNelson() {
   return readFile('simpsonFamily.json', 'utf-8')
